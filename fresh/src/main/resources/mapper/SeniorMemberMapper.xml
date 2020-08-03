@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fresh.dao.SeniorMemberMapper">
+  <resultMap id="BaseResultMap" type="com.fresh.bean.SeniorMember">
+    <id column="SENIOR_ID" jdbcType="DECIMAL" property="seniorId" />
+    <result column="SENIOR_PHONE" jdbcType="DECIMAL" property="seniorPhone" />
+    <result column="SENIOR_EMAIL" jdbcType="VARCHAR" property="seniorEmail" />
+    <result column="TELEPHONE" jdbcType="DECIMAL" property="telephone" />
+    <result column="MEMBER_ID" jdbcType="DECIMAL" property="memberId" />
+    <result column="U_ID" jdbcType="DECIMAL" property="uId" />
+    <result column="CARD_ID" jdbcType="VARCHAR" property="cardId" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SENIOR_ID, SENIOR_PHONE, SENIOR_EMAIL, TELEPHONE, MEMBER_ID, U_ID, CARD_ID, STATUS
+  </sql>
+  <select id="selectByExample" parameterType="com.fresh.bean.SeniorMemberExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SENIOR_MEMBER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SENIOR_MEMBER
+    where SENIOR_ID = #{seniorId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from SENIOR_MEMBER
+    where SENIOR_ID = #{seniorId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fresh.bean.SeniorMemberExample">
+    delete from SENIOR_MEMBER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fresh.bean.SeniorMember">
+    insert into SENIOR_MEMBER (SENIOR_ID, SENIOR_PHONE, SENIOR_EMAIL, 
+      TELEPHONE, MEMBER_ID, U_ID, 
+      CARD_ID, STATUS)
+    values (#{seniorId,jdbcType=DECIMAL}, #{seniorPhone,jdbcType=DECIMAL}, #{seniorEmail,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=DECIMAL}, #{memberId,jdbcType=DECIMAL}, #{uId,jdbcType=DECIMAL}, 
+      #{cardId,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fresh.bean.SeniorMember">
+    insert into SENIOR_MEMBER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seniorId != null">
+        SENIOR_ID,
+      </if>
+      <if test="seniorPhone != null">
+        SENIOR_PHONE,
+      </if>
+      <if test="seniorEmail != null">
+        SENIOR_EMAIL,
+      </if>
+      <if test="telephone != null">
+        TELEPHONE,
+      </if>
+      <if test="memberId != null">
+        MEMBER_ID,
+      </if>
+      <if test="uId != null">
+        U_ID,
+      </if>
+      <if test="cardId != null">
+        CARD_ID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seniorId != null">
+        #{seniorId,jdbcType=DECIMAL},
+      </if>
+      <if test="seniorPhone != null">
+        #{seniorPhone,jdbcType=DECIMAL},
+      </if>
+      <if test="seniorEmail != null">
+        #{seniorEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=DECIMAL},
+      </if>
+      <if test="memberId != null">
+        #{memberId,jdbcType=DECIMAL},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=DECIMAL},
+      </if>
+      <if test="cardId != null">
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fresh.bean.SeniorMemberExample" resultType="java.lang.Long">
+    select count(*) from SENIOR_MEMBER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SENIOR_MEMBER
+    <set>
+      <if test="record.seniorId != null">
+        SENIOR_ID = #{record.seniorId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.seniorPhone != null">
+        SENIOR_PHONE = #{record.seniorPhone,jdbcType=DECIMAL},
+      </if>
+      <if test="record.seniorEmail != null">
+        SENIOR_EMAIL = #{record.seniorEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null">
+        TELEPHONE = #{record.telephone,jdbcType=DECIMAL},
+      </if>
+      <if test="record.memberId != null">
+        MEMBER_ID = #{record.memberId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.uId != null">
+        U_ID = #{record.uId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cardId != null">
+        CARD_ID = #{record.cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SENIOR_MEMBER
+    set SENIOR_ID = #{record.seniorId,jdbcType=DECIMAL},
+      SENIOR_PHONE = #{record.seniorPhone,jdbcType=DECIMAL},
+      SENIOR_EMAIL = #{record.seniorEmail,jdbcType=VARCHAR},
+      TELEPHONE = #{record.telephone,jdbcType=DECIMAL},
+      MEMBER_ID = #{record.memberId,jdbcType=DECIMAL},
+      U_ID = #{record.uId,jdbcType=DECIMAL},
+      CARD_ID = #{record.cardId,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fresh.bean.SeniorMember">
+    update SENIOR_MEMBER
+    <set>
+      <if test="seniorPhone != null">
+        SENIOR_PHONE = #{seniorPhone,jdbcType=DECIMAL},
+      </if>
+      <if test="seniorEmail != null">
+        SENIOR_EMAIL = #{seniorEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        TELEPHONE = #{telephone,jdbcType=DECIMAL},
+      </if>
+      <if test="memberId != null">
+        MEMBER_ID = #{memberId,jdbcType=DECIMAL},
+      </if>
+      <if test="uId != null">
+        U_ID = #{uId,jdbcType=DECIMAL},
+      </if>
+      <if test="cardId != null">
+        CARD_ID = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SENIOR_ID = #{seniorId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fresh.bean.SeniorMember">
+    update SENIOR_MEMBER
+    set SENIOR_PHONE = #{seniorPhone,jdbcType=DECIMAL},
+      SENIOR_EMAIL = #{seniorEmail,jdbcType=VARCHAR},
+      TELEPHONE = #{telephone,jdbcType=DECIMAL},
+      MEMBER_ID = #{memberId,jdbcType=DECIMAL},
+      U_ID = #{uId,jdbcType=DECIMAL},
+      CARD_ID = #{cardId,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL}
+    where SENIOR_ID = #{seniorId,jdbcType=DECIMAL}
+  </update>
+</mapper>
