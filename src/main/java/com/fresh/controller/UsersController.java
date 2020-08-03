@@ -35,6 +35,13 @@ public class UsersController {
 		return "login";
 	}
 
+	/**
+	 * 生成验证码
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping({ "/checkCode" })
 	public void checkCode(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
