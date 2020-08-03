@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fresh.dao.RegionTabMapper">
+  <resultMap id="BaseResultMap" type="com.fresh.bean.RegionTab">
+    <id column="REGION_ID" jdbcType="DECIMAL" property="regionId" />
+    <result column="REGION_NAME" jdbcType="VARCHAR" property="regionName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    REGION_ID, REGION_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.fresh.bean.RegionTabExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from REGION_TAB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from REGION_TAB
+    where REGION_ID = #{regionId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from REGION_TAB
+    where REGION_ID = #{regionId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fresh.bean.RegionTabExample">
+    delete from REGION_TAB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fresh.bean.RegionTab">
+    insert into REGION_TAB (REGION_ID, REGION_NAME)
+    values (#{regionId,jdbcType=DECIMAL}, #{regionName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fresh.bean.RegionTab">
+    insert into REGION_TAB
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="regionId != null">
+        REGION_ID,
+      </if>
+      <if test="regionName != null">
+        REGION_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="regionId != null">
+        #{regionId,jdbcType=DECIMAL},
+      </if>
+      <if test="regionName != null">
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fresh.bean.RegionTabExample" resultType="java.lang.Long">
+    select count(*) from REGION_TAB
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update REGION_TAB
+    <set>
+      <if test="record.regionId != null">
+        REGION_ID = #{record.regionId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.regionName != null">
+        REGION_NAME = #{record.regionName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update REGION_TAB
+    set REGION_ID = #{record.regionId,jdbcType=DECIMAL},
+      REGION_NAME = #{record.regionName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fresh.bean.RegionTab">
+    update REGION_TAB
+    <set>
+      <if test="regionName != null">
+        REGION_NAME = #{regionName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where REGION_ID = #{regionId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fresh.bean.RegionTab">
+    update REGION_TAB
+    set REGION_NAME = #{regionName,jdbcType=VARCHAR}
+    where REGION_ID = #{regionId,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fresh.dao.ResourceListDetailsMapper">
+  <resultMap id="BaseResultMap" type="com.fresh.bean.ResourceListDetails">
+    <id column="PRODUCT_ID" jdbcType="DECIMAL" property="productId" />
+    <result column="PRODUCT_CLASSIFY" jdbcType="DECIMAL" property="productClassify" />
+    <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+    <result column="PLACE" jdbcType="VARCHAR" property="place" />
+    <result column="BRAND" jdbcType="VARCHAR" property="brand" />
+    <result column="SPECIFICATION" jdbcType="DECIMAL" property="specification" />
+    <result column="RANK" jdbcType="VARCHAR" property="rank" />
+    <result column="INVENTORY" jdbcType="DECIMAL" property="inventory" />
+    <result column="UNITPRICE" jdbcType="DECIMAL" property="unitprice" />
+    <result column="CURRENCY" jdbcType="DECIMAL" property="currency" />
+    <result column="WAREHOUSE" jdbcType="VARCHAR" property="warehouse" />
+    <result column="FLUCTUATE" jdbcType="VARCHAR" property="fluctuate" />
+    <result column="PERIOD_SPOT" jdbcType="DECIMAL" property="periodSpot" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="RESOURCE_BILL_ID" jdbcType="DECIMAL" property="resourceBillId" />
+    <result column="PRODUCT_IMGPATH" jdbcType="VARCHAR" property="productImgpath" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PRODUCT_ID, PRODUCT_CLASSIFY, PRODUCT_NAME, PLACE, BRAND, SPECIFICATION, RANK, INVENTORY, 
+    UNITPRICE, CURRENCY, WAREHOUSE, FLUCTUATE, PERIOD_SPOT, REMARK, STATUS, RESOURCE_BILL_ID, 
+    PRODUCT_IMGPATH
+  </sql>
+  <select id="selectByExample" parameterType="com.fresh.bean.ResourceListDetailsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from RESOURCE_LIST_DETAILS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from RESOURCE_LIST_DETAILS
+    where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from RESOURCE_LIST_DETAILS
+    where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fresh.bean.ResourceListDetailsExample">
+    delete from RESOURCE_LIST_DETAILS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fresh.bean.ResourceListDetails">
+    insert into RESOURCE_LIST_DETAILS (PRODUCT_ID, PRODUCT_CLASSIFY, PRODUCT_NAME, 
+      PLACE, BRAND, SPECIFICATION, 
+      RANK, INVENTORY, UNITPRICE, 
+      CURRENCY, WAREHOUSE, FLUCTUATE, 
+      PERIOD_SPOT, REMARK, STATUS, 
+      RESOURCE_BILL_ID, PRODUCT_IMGPATH)
+    values (#{productId,jdbcType=DECIMAL}, #{productClassify,jdbcType=DECIMAL}, #{productName,jdbcType=VARCHAR}, 
+      #{place,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, #{specification,jdbcType=DECIMAL}, 
+      #{rank,jdbcType=VARCHAR}, #{inventory,jdbcType=DECIMAL}, #{unitprice,jdbcType=DECIMAL}, 
+      #{currency,jdbcType=DECIMAL}, #{warehouse,jdbcType=VARCHAR}, #{fluctuate,jdbcType=VARCHAR}, 
+      #{periodSpot,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, 
+      #{resourceBillId,jdbcType=DECIMAL}, #{productImgpath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fresh.bean.ResourceListDetails">
+    insert into RESOURCE_LIST_DETAILS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        PRODUCT_ID,
+      </if>
+      <if test="productClassify != null">
+        PRODUCT_CLASSIFY,
+      </if>
+      <if test="productName != null">
+        PRODUCT_NAME,
+      </if>
+      <if test="place != null">
+        PLACE,
+      </if>
+      <if test="brand != null">
+        BRAND,
+      </if>
+      <if test="specification != null">
+        SPECIFICATION,
+      </if>
+      <if test="rank != null">
+        RANK,
+      </if>
+      <if test="inventory != null">
+        INVENTORY,
+      </if>
+      <if test="unitprice != null">
+        UNITPRICE,
+      </if>
+      <if test="currency != null">
+        CURRENCY,
+      </if>
+      <if test="warehouse != null">
+        WAREHOUSE,
+      </if>
+      <if test="fluctuate != null">
+        FLUCTUATE,
+      </if>
+      <if test="periodSpot != null">
+        PERIOD_SPOT,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="resourceBillId != null">
+        RESOURCE_BILL_ID,
+      </if>
+      <if test="productImgpath != null">
+        PRODUCT_IMGPATH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        #{productId,jdbcType=DECIMAL},
+      </if>
+      <if test="productClassify != null">
+        #{productClassify,jdbcType=DECIMAL},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null">
+        #{specification,jdbcType=DECIMAL},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="inventory != null">
+        #{inventory,jdbcType=DECIMAL},
+      </if>
+      <if test="unitprice != null">
+        #{unitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="currency != null">
+        #{currency,jdbcType=DECIMAL},
+      </if>
+      <if test="warehouse != null">
+        #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="fluctuate != null">
+        #{fluctuate,jdbcType=VARCHAR},
+      </if>
+      <if test="periodSpot != null">
+        #{periodSpot,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceBillId != null">
+        #{resourceBillId,jdbcType=DECIMAL},
+      </if>
+      <if test="productImgpath != null">
+        #{productImgpath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fresh.bean.ResourceListDetailsExample" resultType="java.lang.Long">
+    select count(*) from RESOURCE_LIST_DETAILS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update RESOURCE_LIST_DETAILS
+    <set>
+      <if test="record.productId != null">
+        PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productClassify != null">
+        PRODUCT_CLASSIFY = #{record.productClassify,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productName != null">
+        PRODUCT_NAME = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.place != null">
+        PLACE = #{record.place,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brand != null">
+        BRAND = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specification != null">
+        SPECIFICATION = #{record.specification,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rank != null">
+        RANK = #{record.rank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inventory != null">
+        INVENTORY = #{record.inventory,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unitprice != null">
+        UNITPRICE = #{record.unitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.currency != null">
+        CURRENCY = #{record.currency,jdbcType=DECIMAL},
+      </if>
+      <if test="record.warehouse != null">
+        WAREHOUSE = #{record.warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fluctuate != null">
+        FLUCTUATE = #{record.fluctuate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.periodSpot != null">
+        PERIOD_SPOT = #{record.periodSpot,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.resourceBillId != null">
+        RESOURCE_BILL_ID = #{record.resourceBillId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productImgpath != null">
+        PRODUCT_IMGPATH = #{record.productImgpath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update RESOURCE_LIST_DETAILS
+    set PRODUCT_ID = #{record.productId,jdbcType=DECIMAL},
+      PRODUCT_CLASSIFY = #{record.productClassify,jdbcType=DECIMAL},
+      PRODUCT_NAME = #{record.productName,jdbcType=VARCHAR},
+      PLACE = #{record.place,jdbcType=VARCHAR},
+      BRAND = #{record.brand,jdbcType=VARCHAR},
+      SPECIFICATION = #{record.specification,jdbcType=DECIMAL},
+      RANK = #{record.rank,jdbcType=VARCHAR},
+      INVENTORY = #{record.inventory,jdbcType=DECIMAL},
+      UNITPRICE = #{record.unitprice,jdbcType=DECIMAL},
+      CURRENCY = #{record.currency,jdbcType=DECIMAL},
+      WAREHOUSE = #{record.warehouse,jdbcType=VARCHAR},
+      FLUCTUATE = #{record.fluctuate,jdbcType=VARCHAR},
+      PERIOD_SPOT = #{record.periodSpot,jdbcType=DECIMAL},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      RESOURCE_BILL_ID = #{record.resourceBillId,jdbcType=DECIMAL},
+      PRODUCT_IMGPATH = #{record.productImgpath,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fresh.bean.ResourceListDetails">
+    update RESOURCE_LIST_DETAILS
+    <set>
+      <if test="productClassify != null">
+        PRODUCT_CLASSIFY = #{productClassify,jdbcType=DECIMAL},
+      </if>
+      <if test="productName != null">
+        PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        PLACE = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null">
+        BRAND = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null">
+        SPECIFICATION = #{specification,jdbcType=DECIMAL},
+      </if>
+      <if test="rank != null">
+        RANK = #{rank,jdbcType=VARCHAR},
+      </if>
+      <if test="inventory != null">
+        INVENTORY = #{inventory,jdbcType=DECIMAL},
+      </if>
+      <if test="unitprice != null">
+        UNITPRICE = #{unitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="currency != null">
+        CURRENCY = #{currency,jdbcType=DECIMAL},
+      </if>
+      <if test="warehouse != null">
+        WAREHOUSE = #{warehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="fluctuate != null">
+        FLUCTUATE = #{fluctuate,jdbcType=VARCHAR},
+      </if>
+      <if test="periodSpot != null">
+        PERIOD_SPOT = #{periodSpot,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="resourceBillId != null">
+        RESOURCE_BILL_ID = #{resourceBillId,jdbcType=DECIMAL},
+      </if>
+      <if test="productImgpath != null">
+        PRODUCT_IMGPATH = #{productImgpath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fresh.bean.ResourceListDetails">
+    update RESOURCE_LIST_DETAILS
+    set PRODUCT_CLASSIFY = #{productClassify,jdbcType=DECIMAL},
+      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      PLACE = #{place,jdbcType=VARCHAR},
+      BRAND = #{brand,jdbcType=VARCHAR},
+      SPECIFICATION = #{specification,jdbcType=DECIMAL},
+      RANK = #{rank,jdbcType=VARCHAR},
+      INVENTORY = #{inventory,jdbcType=DECIMAL},
+      UNITPRICE = #{unitprice,jdbcType=DECIMAL},
+      CURRENCY = #{currency,jdbcType=DECIMAL},
+      WAREHOUSE = #{warehouse,jdbcType=VARCHAR},
+      FLUCTUATE = #{fluctuate,jdbcType=VARCHAR},
+      PERIOD_SPOT = #{periodSpot,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      RESOURCE_BILL_ID = #{resourceBillId,jdbcType=DECIMAL},
+      PRODUCT_IMGPATH = #{productImgpath,jdbcType=VARCHAR}
+    where PRODUCT_ID = #{productId,jdbcType=DECIMAL}
+  </update>
+</mapper>
