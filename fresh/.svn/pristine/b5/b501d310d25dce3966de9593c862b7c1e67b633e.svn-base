@@ -1,0 +1,4 @@
+oracle.driver=oracle.jdbc.OracleDriver
+oracle.url=jdbc:oracle:thin:@10.1.15.141:1521:orcl
+oracle.username=fresh
+oracle.password=123456

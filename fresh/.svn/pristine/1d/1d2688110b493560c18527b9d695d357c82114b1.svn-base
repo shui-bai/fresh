@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fresh.dao.IdentityCardMapper">
+  <resultMap id="BaseResultMap" type="com.fresh.bean.IdentityCard">
+    <id column="CARD_ID" jdbcType="DECIMAL" property="cardId" />
+    <result column="REAL_NAME" jdbcType="VARCHAR" property="realName" />
+    <result column="CARD_NUMBER" jdbcType="VARCHAR" property="cardNumber" />
+    <result column="CARD_IMGPATH" jdbcType="VARCHAR" property="cardImgpath" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CARD_ID, REAL_NAME, CARD_NUMBER, CARD_IMGPATH, ADDRESS
+  </sql>
+  <select id="selectByExample" parameterType="com.fresh.bean.IdentityCardExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from IDENTITY_CARD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from IDENTITY_CARD
+    where CARD_ID = #{cardId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from IDENTITY_CARD
+    where CARD_ID = #{cardId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fresh.bean.IdentityCardExample">
+    delete from IDENTITY_CARD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fresh.bean.IdentityCard">
+    insert into IDENTITY_CARD (CARD_ID, REAL_NAME, CARD_NUMBER, 
+      CARD_IMGPATH, ADDRESS)
+    values (#{cardId,jdbcType=DECIMAL}, #{realName,jdbcType=VARCHAR}, #{cardNumber,jdbcType=VARCHAR}, 
+      #{cardImgpath,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fresh.bean.IdentityCard">
+    insert into IDENTITY_CARD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cardId != null">
+        CARD_ID,
+      </if>
+      <if test="realName != null">
+        REAL_NAME,
+      </if>
+      <if test="cardNumber != null">
+        CARD_NUMBER,
+      </if>
+      <if test="cardImgpath != null">
+        CARD_IMGPATH,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cardId != null">
+        #{cardId,jdbcType=DECIMAL},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNumber != null">
+        #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImgpath != null">
+        #{cardImgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fresh.bean.IdentityCardExample" resultType="java.lang.Long">
+    select count(*) from IDENTITY_CARD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update IDENTITY_CARD
+    <set>
+      <if test="record.cardId != null">
+        CARD_ID = #{record.cardId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.realName != null">
+        REAL_NAME = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardNumber != null">
+        CARD_NUMBER = #{record.cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardImgpath != null">
+        CARD_IMGPATH = #{record.cardImgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        ADDRESS = #{record.address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update IDENTITY_CARD
+    set CARD_ID = #{record.cardId,jdbcType=DECIMAL},
+      REAL_NAME = #{record.realName,jdbcType=VARCHAR},
+      CARD_NUMBER = #{record.cardNumber,jdbcType=VARCHAR},
+      CARD_IMGPATH = #{record.cardImgpath,jdbcType=VARCHAR},
+      ADDRESS = #{record.address,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fresh.bean.IdentityCard">
+    update IDENTITY_CARD
+    <set>
+      <if test="realName != null">
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNumber != null">
+        CARD_NUMBER = #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="cardImgpath != null">
+        CARD_IMGPATH = #{cardImgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CARD_ID = #{cardId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fresh.bean.IdentityCard">
+    update IDENTITY_CARD
+    set REAL_NAME = #{realName,jdbcType=VARCHAR},
+      CARD_NUMBER = #{cardNumber,jdbcType=VARCHAR},
+      CARD_IMGPATH = #{cardImgpath,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR}
+    where CARD_ID = #{cardId,jdbcType=DECIMAL}
+  </update>
+</mapper>

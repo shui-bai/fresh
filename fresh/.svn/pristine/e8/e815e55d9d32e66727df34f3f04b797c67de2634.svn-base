@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fresh.dao.ShoppingTrolleyMapper">
+  <resultMap id="BaseResultMap" type="com.fresh.bean.ShoppingTrolley">
+    <id column="SHPPING_TROLLEY_ID" jdbcType="DECIMAL" property="shppingTrolleyId" />
+    <result column="SENIOR_ID" jdbcType="DECIMAL" property="seniorId" />
+    <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+    <result column="SPECIFICATION" jdbcType="VARCHAR" property="specification" />
+    <result column="PLACE" jdbcType="VARCHAR" property="place" />
+    <result column="UNITPRICE" jdbcType="DECIMAL" property="unitprice" />
+    <result column="QUANTITY" jdbcType="DECIMAL" property="quantity" />
+    <result column="MONEY" jdbcType="DECIMAL" property="money" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SHPPING_TROLLEY_ID, SENIOR_ID, PRODUCT_NAME, SPECIFICATION, PLACE, UNITPRICE, QUANTITY, 
+    MONEY
+  </sql>
+  <select id="selectByExample" parameterType="com.fresh.bean.ShoppingTrolleyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SHOPPING_TROLLEY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SHOPPING_TROLLEY
+    where SHPPING_TROLLEY_ID = #{shppingTrolleyId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from SHOPPING_TROLLEY
+    where SHPPING_TROLLEY_ID = #{shppingTrolleyId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fresh.bean.ShoppingTrolleyExample">
+    delete from SHOPPING_TROLLEY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fresh.bean.ShoppingTrolley">
+    insert into SHOPPING_TROLLEY (SHPPING_TROLLEY_ID, SENIOR_ID, PRODUCT_NAME, 
+      SPECIFICATION, PLACE, UNITPRICE, 
+      QUANTITY, MONEY)
+    values (#{shppingTrolleyId,jdbcType=DECIMAL}, #{seniorId,jdbcType=DECIMAL}, #{productName,jdbcType=VARCHAR}, 
+      #{specification,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{unitprice,jdbcType=DECIMAL}, 
+      #{quantity,jdbcType=DECIMAL}, #{money,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fresh.bean.ShoppingTrolley">
+    insert into SHOPPING_TROLLEY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shppingTrolleyId != null">
+        SHPPING_TROLLEY_ID,
+      </if>
+      <if test="seniorId != null">
+        SENIOR_ID,
+      </if>
+      <if test="productName != null">
+        PRODUCT_NAME,
+      </if>
+      <if test="specification != null">
+        SPECIFICATION,
+      </if>
+      <if test="place != null">
+        PLACE,
+      </if>
+      <if test="unitprice != null">
+        UNITPRICE,
+      </if>
+      <if test="quantity != null">
+        QUANTITY,
+      </if>
+      <if test="money != null">
+        MONEY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shppingTrolleyId != null">
+        #{shppingTrolleyId,jdbcType=DECIMAL},
+      </if>
+      <if test="seniorId != null">
+        #{seniorId,jdbcType=DECIMAL},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null">
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="unitprice != null">
+        #{unitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fresh.bean.ShoppingTrolleyExample" resultType="java.lang.Long">
+    select count(*) from SHOPPING_TROLLEY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SHOPPING_TROLLEY
+    <set>
+      <if test="record.shppingTrolleyId != null">
+        SHPPING_TROLLEY_ID = #{record.shppingTrolleyId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.seniorId != null">
+        SENIOR_ID = #{record.seniorId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productName != null">
+        PRODUCT_NAME = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specification != null">
+        SPECIFICATION = #{record.specification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.place != null">
+        PLACE = #{record.place,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitprice != null">
+        UNITPRICE = #{record.unitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.quantity != null">
+        QUANTITY = #{record.quantity,jdbcType=DECIMAL},
+      </if>
+      <if test="record.money != null">
+        MONEY = #{record.money,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SHOPPING_TROLLEY
+    set SHPPING_TROLLEY_ID = #{record.shppingTrolleyId,jdbcType=DECIMAL},
+      SENIOR_ID = #{record.seniorId,jdbcType=DECIMAL},
+      PRODUCT_NAME = #{record.productName,jdbcType=VARCHAR},
+      SPECIFICATION = #{record.specification,jdbcType=VARCHAR},
+      PLACE = #{record.place,jdbcType=VARCHAR},
+      UNITPRICE = #{record.unitprice,jdbcType=DECIMAL},
+      QUANTITY = #{record.quantity,jdbcType=DECIMAL},
+      MONEY = #{record.money,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fresh.bean.ShoppingTrolley">
+    update SHOPPING_TROLLEY
+    <set>
+      <if test="seniorId != null">
+        SENIOR_ID = #{seniorId,jdbcType=DECIMAL},
+      </if>
+      <if test="productName != null">
+        PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null">
+        SPECIFICATION = #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        PLACE = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="unitprice != null">
+        UNITPRICE = #{unitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="quantity != null">
+        QUANTITY = #{quantity,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null">
+        MONEY = #{money,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SHPPING_TROLLEY_ID = #{shppingTrolleyId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fresh.bean.ShoppingTrolley">
+    update SHOPPING_TROLLEY
+    set SENIOR_ID = #{seniorId,jdbcType=DECIMAL},
+      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      SPECIFICATION = #{specification,jdbcType=VARCHAR},
+      PLACE = #{place,jdbcType=VARCHAR},
+      UNITPRICE = #{unitprice,jdbcType=DECIMAL},
+      QUANTITY = #{quantity,jdbcType=DECIMAL},
+      MONEY = #{money,jdbcType=DECIMAL}
+    where SHPPING_TROLLEY_ID = #{shppingTrolleyId,jdbcType=DECIMAL}
+  </update>
+</mapper>

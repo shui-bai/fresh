@@ -1,0 +1,36 @@
+package com.fresh.controller;
+
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/user")
+public class UsersController {
+
+	@RequestMapping("login")
+	public String Login() {
+		System.out.println("wwww");
+		return "index";
+	}
+
+	@RequestMapping("register")
+	public String register() {
+		return "register";
+	}
+
+	@RequestMapping("regSubmit")
+	public String regSubmit(Map<String, Object> map) {
+		
+		for (Entry<String, Object> entry : map.entrySet()) {
+			System.out.println("键 key ：" + entry.getKey() + " 值value ："
+					+ entry.getValue());
+		}
+
+		return "";
+
+	}
+
+}
